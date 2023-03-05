@@ -1,5 +1,8 @@
 # actix-web GCD
 
+[![CI](https://github.com/keithnoguchi/actix-gcd/actions/workflows/ci.yml/badge.svg)](
+https://github.com/keithnoguchi/actix-gcd/actions)
+
 Kudos to Jim Blandy, Jason Orendorff & Leonora F.S. Tindall.
 
 # Examples
