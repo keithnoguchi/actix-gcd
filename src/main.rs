@@ -2,9 +2,11 @@ use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let app = || App::new()
-        .route("/", web::get().to(index))
-        .route("/gcd", web::post().to(get_gcd));
+    let app = || {
+        App::new()
+            .route("/", web::get().to(index))
+            .route("/gcd", web::post().to(get_gcd))
+    };
 
     HttpServer::new(app)
         .bind("127.0.0.1:3000")?
@@ -34,14 +36,12 @@ struct GcdForm {
 
 async fn get_gcd(form: web::Form<GcdForm>) -> HttpResponse {
     if form.m == 0 || form.n == 0 {
-        return HttpResponse::BadRequest()
-            .content_type("text/html")
-            .body(
-                r#"
+        return HttpResponse::BadRequest().content_type("text/html").body(
+            r#"
                     <!doctype html>
                     <p>Computing the GCD with zero is boring.</p>
                 "#,
-            );
+        );
     }
 
     let resp = format!(
@@ -51,11 +51,12 @@ async fn get_gcd(form: web::Form<GcdForm>) -> HttpResponse {
                 The greatest common divisor of the numbers {} and {}
                 is <b>{}</b>.
             <p>
-        "#, form.m, form.n, gcd(form.m, form.n),
+        "#,
+        form.m,
+        form.n,
+        gcd(form.m, form.n),
     );
-    HttpResponse::Ok()
-        .content_type("text/html")
-        .body(resp)
+    HttpResponse::Ok().content_type("text/html").body(resp)
 }
 
 fn gcd(mut m: u64, mut n: u64) -> u64 {
