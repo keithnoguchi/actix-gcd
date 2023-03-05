@@ -6,6 +6,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(app)
         .bind("127.0.0.1:3000")?
+        .bind("[::1]:3000")?
         .run()
         .await
 }
