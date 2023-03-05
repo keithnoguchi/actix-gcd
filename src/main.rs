@@ -12,5 +12,14 @@ async fn main() -> std::io::Result<()> {
 }
 
 async fn index(_req: HttpRequest) -> HttpResponse {
-    HttpResponse::Ok().finish()
+    HttpResponse::Ok().body(
+        r#"
+            <!doctype html>
+            <form action="/gcd" method="post">
+               <input type="text" name="n" />
+               <input type="text" name="m" />
+               <button type="submit">Compute GCD</button>
+            </form>
+        "#,
+    )
 }
